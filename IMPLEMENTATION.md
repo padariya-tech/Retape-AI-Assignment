@@ -168,6 +168,7 @@ The remaining settlement amount is distributed evenly across later payments.
 
 This interpretation was chosen because it maximizes early fee collection while respecting creditor constraints.
 
+The implementation treats `last_draft_date` as the scheduling horizon. Creditor payments are restricted to occur on or before this date, ensuring all scheduled payments are supported by known future funding events.
 ---
 
 # Step 3: Simulate the Ledger
