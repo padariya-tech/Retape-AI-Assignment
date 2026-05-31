@@ -221,6 +221,8 @@ At most `max_segments` distinct payment levels. We enumerate split points
 Valid splits must satisfy exact sum, floors, non-decreasing, and segment cap.
 When `max_segments = 1`, this degenerates to equal payments.
 
+For staircase schedules, I interpret the objective ("collect fees as early as possible") by keeping as many early payments as possible at their minimum legal values. The remaining settlement amount is distributed evenly across later payments, creating a step-up structure. This produces a staircase with up to `max_segments` levels; in my implementation a two-level staircase is sufficient because the objective naturally favors minimizing early payments and concentrating larger payments later.
+
 ### Floor calculation
 
 For each 1-based payment position `i`:

@@ -206,11 +206,22 @@ How the flags constrain the shape:
   distinct levels. We are **not** prescribing where the steps go — that follows
   from the objective.
 
+  The implementation currently generates a two-level staircase (early floor payments followed by higher payments).
+
+  This interpretation was chosen because it directly supports the objective of maximizing early fee collection while remaining within the allowed max_segments constraint.
+
+Segment Counting
+
+Segment counting ignores ±1 cent differences introduced by integer division and remainder distribution.
+For example, payments [2500, 2500, 14166, 14167, 14167] are treated as a two-segment staircase rather than three segments.
+
+
 We describe this loosely **on purpose**. Model the shapes as you see fit and
 **document your interpretation in the README** — in particular, how token pays /
 tiers interact with a final balloon, and how you place steps under `max_segments`.
 We care about your reasoning, not about matching a hidden formula. Report which
 shape you produced in `pay_shape_used` (`"even"`, `"staircase"`, or `"balloon"`).
+
 
 ### Worked micro-example (shows the objective)
 

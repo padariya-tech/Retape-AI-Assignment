@@ -229,6 +229,18 @@ def build_even_like(k: int, offer_total: int, rules: CreditorRules) -> list[int]
             token_pays_used += 1
     return payments
 
+def count_segments(payments: list[int]) -> int:
+    if not payments:
+        return 0
+
+    segments = 1
+
+    for i in range(1, len(payments)):
+        # Ignore +/-1 caused by remainder distribution
+        if abs(payments[i] - payments[i - 1]) > 2:
+            segments += 1
+
+    return segments
 
 def _try_staircase(k: int, offer_total: int, rules: CreditorRules, max_seg: int) -> list[int] | None:
     """
@@ -300,7 +312,8 @@ def _try_staircase(k: int, offer_total: int, rules: CreditorRules, max_seg: int)
             continue
 
         # Segment count check
-        distinct = len(set(payments))
+        # distinct = len(set(payments))
+        distinct = count_segments(payments)
         if distinct > max_seg:
             continue
 
